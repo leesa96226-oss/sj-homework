@@ -1,0 +1,11 @@
+node_modules/
+dist/
+*.local
+*.tsbuildinfo
+.DS_Store
+
+# 원본 엑셀 파일은 저장소에 올리지 않음
+*.xlsx
+*.xls
+
+.claude/
