@@ -16,9 +16,20 @@ export interface Dataset {
   workers: Worker[];
 }
 
+/** 브라우저 localStorage에 보관되는 데이터 단위 (사용자 PC 밖으로 나가지 않음) */
+export interface StoredDataset {
+  id: string;
+  label: string;
+  savedAt: string;
+  isDemo?: boolean;
+  data: Dataset;
+}
+
 export interface CompanySummary {
   company: string;
   headcount: number;
   totalGongsu: number;
   totalPay: number;
 }
+
+export type PageKey = "gongsu" | "settlement" | "site" | "docs";
