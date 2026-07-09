@@ -134,7 +134,7 @@ export default function App() {
       <aside className="sidebar">
         <div className="brand">
           <h1>신정개발</h1>
-          <p>경영지원 대시보드</p>
+          <p>일용인력 대시보드</p>
         </div>
         <nav>
           {NAV.map((n) =>
