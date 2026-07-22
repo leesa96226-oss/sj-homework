@@ -18,7 +18,7 @@ export function EmptyState({ onUploadClick, onDemo }: Props) {
           ⬆ 엑셀 파일 선택 (.xlsx)
         </button>
         <button className="ghost-btn" onClick={onDemo}>
-          가상 데이터로 화면 미리보기
+          🧪 샘플 데이터로 보기
         </button>
 
         <div className="security-box">

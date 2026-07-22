@@ -15,19 +15,29 @@ function mulberry32(seed: number) {
   };
 }
 
+/**
+ * 아래 값은 모두 실제 회사·인물과 무관한 가짜 데이터다.
+ * '현장명'은 요청에 따라 A현장·B현장 식으로, '성명'은 홍길동·김철수 같은
+ * 대표적인 예시 이름을 사용하므로 GitHub 저장소에 올라가도 무방하다.
+ */
 const COMPANIES = [
-  { name: "가나건설(가상)", rate: 100000, size: 9 },
-  { name: "다라산업(가상)", rate: 150000, size: 7 },
-  { name: "마바기공(가상)", rate: 200000, size: 5 },
+  { name: "A현장", rate: 100000, size: 8 },
+  { name: "B현장", rate: 150000, size: 6 },
+  { name: "C현장", rate: 200000, size: 5 },
 ];
-const SURNAMES = ["김", "이", "박", "최", "정", "강", "조", "윤", "장", "임"];
-const GIVEN = ["철수", "영희", "민준", "서연", "도윤", "하은", "지호", "수아", "예준", "지민"];
+const NAMES = [
+  "홍길동", "김철수", "이영희", "박민수", "최지영", "정대현",
+  "강수진", "조현우", "윤서연", "임재훈", "한지민", "오세훈",
+  "서준호", "신미래", "권보라", "황도윤", "안예린", "배성민",
+  "문하늘", "유가온",
+];
 const GONGSU_VALUES = [0.5, 0.9, 1, 1.5, 1.8, 2.1, 2.3, 2.7];
 
 export function makeDemoDataset(): Dataset {
   const rand = mulberry32(20260708);
   const pick = <T,>(arr: T[]) => arr[Math.floor(rand() * arr.length)];
   const workers: Worker[] = [];
+  let nameIdx = 0;
 
   for (const comp of COMPANIES) {
     for (let i = 1; i <= comp.size; i++) {
@@ -43,7 +53,7 @@ export function makeDemoDataset(): Dataset {
         company: comp.name,
         category: "실근무",
         no: i,
-        name: `${pick(SURNAMES)}${pick(GIVEN)}`,
+        name: NAMES[nameIdx++ % NAMES.length],
         days,
         totalGongsu,
         rate: comp.rate,
@@ -52,5 +62,5 @@ export function makeDemoDataset(): Dataset {
     }
   }
 
-  return { label: "데모 데이터 (가상 인물·업체)", daysInMonth: 31, workers };
+  return { label: "샘플 데이터 (가상 현장·인물)", daysInMonth: 31, workers };
 }

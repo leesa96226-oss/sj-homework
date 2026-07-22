@@ -10,6 +10,7 @@ import { DailyChart } from "./components/DailyChart";
 import { WorkerTable } from "./components/WorkerTable";
 import { EmptyState } from "./components/EmptyState";
 import { SettlementPage } from "./components/SettlementPage";
+import { UsageListPage } from "./components/UsageListPage";
 
 export const COMPANY_COLORS = [
   "#3b82f6",
@@ -25,6 +26,7 @@ export const COMPANY_COLORS = [
 const NAV: { key: PageKey; label: string; ready: boolean }[] = [
   { key: "gongsu", label: "📊 인력공수 관리", ready: true },
   { key: "settlement", label: "🧾 노무비 정산", ready: true },
+  { key: "usage", label: "📋 사용 목록", ready: true },
   { key: "site", label: "🏗️ 현장 관리", ready: false },
   { key: "docs", label: "📁 문서 관리", ready: false },
 ];
@@ -176,6 +178,8 @@ export default function App() {
                 <h2>
                   {page === "settlement"
                     ? "노무비 정산"
+                    : page === "usage"
+                    ? "사용 목록"
                     : "인력공수 계산 대시보드"}
                 </h2>
                 <p className="sub">
@@ -203,6 +207,13 @@ export default function App() {
                 </button>
                 <button
                   className="ghost-btn"
+                  onClick={onDemo}
+                  title="엑셀 없이 가짜 데이터로 화면 미리보기"
+                >
+                  🧪 샘플 데이터로 보기
+                </button>
+                <button
+                  className="ghost-btn"
                   onClick={() => onDelete(active!.id)}
                 >
                   삭제
@@ -215,6 +226,12 @@ export default function App() {
 
             {page === "settlement" ? (
               <SettlementPage dataset={dataset} colorOf={colorOf} />
+            ) : page === "usage" ? (
+              <UsageListPage
+                dataset={dataset}
+                companies={companies}
+                colorOf={colorOf}
+              />
             ) : (
               <>
                 <KpiCards dataset={dataset} />

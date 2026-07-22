@@ -32,4 +32,4 @@ export interface CompanySummary {
   totalPay: number;
 }
 
-export type PageKey = "gongsu" | "settlement" | "site" | "docs";
+export type PageKey = "gongsu" | "settlement" | "usage" | "site" | "docs";
