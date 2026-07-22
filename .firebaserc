@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "sj-lsa-deploy1"
+  },
+  "targets": {
+    "sj-lsa-deploy1": {
+      "hosting": {
+        "sj-lsahomework3": [
+          "sj-lsahomework3"
+        ]
+      }
+    }
+  }
+}

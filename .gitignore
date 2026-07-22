@@ -15,4 +15,7 @@ dist/
 *.csv
 src/data/
 
+# Firebase 배포 캐시 (로컬 전용)
+.firebase/
+
 .claude/
