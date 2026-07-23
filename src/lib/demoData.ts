@@ -33,13 +33,17 @@ const NAMES = [
 ];
 const GONGSU_VALUES = [0.5, 0.9, 1, 1.5, 1.8, 2.1, 2.3, 2.7];
 
-export function makeDemoDataset(): Dataset {
-  const rand = mulberry32(20260708);
+/** 주어진 업체 목록·시드로 한 벌(실근무본 또는 신고본)의 인력을 생성한다. */
+function makeWorkers(
+  companies: { name: string; rate: number; size: number }[],
+  seed: number
+): Worker[] {
+  const rand = mulberry32(seed);
   const pick = <T,>(arr: T[]) => arr[Math.floor(rand() * arr.length)];
   const workers: Worker[] = [];
   let nameIdx = 0;
 
-  for (const comp of COMPANIES) {
+  for (const comp of companies) {
     for (let i = 1; i <= comp.size; i++) {
       const days: Record<string, number> = {};
       const workDayCount = 3 + Math.floor(rand() * 15);
@@ -61,6 +65,28 @@ export function makeDemoDataset(): Dataset {
       });
     }
   }
+  return workers;
+}
 
-  return { label: "샘플 데이터 (가상 현장·인물)", daysInMonth: 31, workers };
+export function makeDemoDataset(): Dataset {
+  // 실근무본: A·B·C 현장
+  const workers = makeWorkers(COMPANIES, 20260708);
+
+  // 신고본: 숫자가 다른 별도 시드로 생성.
+  // C현장은 신고본 시트가 없다고 가정해 신고본 모드에서 빠지는 모습을 시연하고,
+  // A현장은 실근무본보다 한 명 더 많게 두어 '인원이 다를 수 있음'을 보여준다.
+  const reportWorkers = makeWorkers(
+    [
+      { name: "A현장", rate: 100000, size: 9 },
+      { name: "B현장", rate: 150000, size: 6 },
+    ],
+    99998888
+  );
+
+  return {
+    label: "샘플 데이터 (가상 현장·인물)",
+    daysInMonth: 31,
+    workers,
+    reportWorkers,
+  };
 }

@@ -526,6 +526,153 @@ tr.subtotal td {
   color: var(--navy);
 }
 
+/* ── 월별 공수 매트릭스 ────────────────── */
+/* 지급명세서형 표: 좌측 3열(업체/직종/성명)과 우측 2열(출역일수/노무비총액)을
+   고정하고, 가운데 1~말일 날짜 열을 가로 스크롤한다. 이 페이지 전용 클래스이며
+   기존 표(.card table 등) 스타일에는 영향을 주지 않는다. */
+table.mx {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: auto;
+  min-width: 100%;
+  font-size: 12.5px;
+}
+
+table.mx th,
+table.mx td {
+  border-bottom: 1px solid #f1f5f9;
+  padding: 7px 10px;
+  white-space: nowrap;
+}
+
+table.mx thead th {
+  background: #f8fafc;
+  color: #475569;
+  font-weight: 600;
+  text-align: center;
+  border-bottom: 1px solid var(--line);
+}
+
+table.mx tbody td {
+  background: #fff;
+}
+
+table.mx .frozen {
+  position: sticky;
+  z-index: 2;
+}
+
+table.mx thead th.frozen {
+  z-index: 3;
+}
+
+table.mx .col-co {
+  left: 0;
+  min-width: 74px;
+  text-align: left;
+}
+
+table.mx .col-cat {
+  left: 74px;
+  min-width: 60px;
+  text-align: left;
+}
+
+table.mx .col-nm {
+  left: 134px;
+  min-width: 78px;
+  text-align: left;
+  box-shadow: inset -1px 0 0 var(--line);
+}
+
+table.mx .col-days {
+  right: 120px;
+  min-width: 66px;
+  box-shadow: inset 1px 0 0 var(--line);
+}
+
+table.mx .col-pay {
+  right: 0;
+  min-width: 120px;
+}
+
+table.mx .mx-sub-label {
+  left: 0;
+  text-align: left;
+  box-shadow: inset -1px 0 0 var(--line);
+}
+
+table.mx .mx-day {
+  min-width: 34px;
+  text-align: center;
+  padding-left: 4px;
+  padding-right: 4px;
+  color: var(--navy);
+  font-variant-numeric: tabular-nums;
+}
+
+table.mx thead th.mx-day {
+  color: #475569;
+}
+
+table.mx tbody tr:hover td {
+  background: #f5f8fd;
+}
+
+table.mx tbody tr.mx-subtotal td {
+  background: #eef2f7;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+table.mx tfoot td {
+  background: #eaf0f8;
+  font-weight: 700;
+  color: var(--navy);
+  border-top: 1px solid var(--line);
+}
+
+/* 날짜 열(1~31일) 사이 세로 점선 구분 — 고정열(성명/합계)은 그대로 */
+table.mx thead th.mx-day,
+table.mx td.mx-day {
+  border-right: 1px dotted #cbd5e1;
+}
+
+/* 실근무본 / 신고본 전환 토글 */
+.mx-toggle {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.mx-toggle button {
+  border: none;
+  background: #fff;
+  color: var(--muted);
+  padding: 8px 20px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.mx-toggle button + button {
+  border-left: 1px solid var(--line);
+}
+
+.mx-toggle button.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.mx-toggle button:disabled {
+  color: #cbd5e1;
+  background: #f8fafc;
+  cursor: not-allowed;
+}
+
 /* ── 인쇄 ─────────────────────────────── */
 @media print {
   .sidebar,
